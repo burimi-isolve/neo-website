@@ -1,0 +1,497 @@
+<div class="row mx-auto">
+  <div class="left-side col-sm-12 col-md-3">
+
+    <div class="accordion" id="accordionExample">
+      <!-- Slider -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Slider
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <div *ngFor="let slideImage of webSite.slides ; let i=index">
+
+              <!-- Preview Image -->
+              <div class="d-flex flex-column justify-content-center align-items-center">
+                <img [src]="slideImage.slideImg" class="slider-image-preview" />
+                <input type="file" (change)="changingSlideImg($event,i)" class="form-control form-control-sm" />
+              </div>
+
+              <label for="slider-title">Slider Title</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="slideImage.slideTitle" />
+
+              <label for="slider-title">Slider Subtitle</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="slideImage.slideSubtitle" />
+
+              <label for="slider-title">Slider Image Alt</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="slideImage.slideImgAlt" />
+
+              <label for="slider-title">Slider Button</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="slideImage.slideButton" />
+
+              <label for="slider-title">Slider Button Link</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="slideImage.slideButtonLink" />
+
+
+              <button (click)="removeElement('slides',i)" class="btn btn-sm btn-danger">- Remove slide</button>
+              <button (click)="moveElement('slides',i,'up')" class="btn btn-sm btn-light" [disabled]="i === 0"><i
+                  class="bi bi-arrow-up-short"></i> Move Up</button>
+              <button (click)="moveElement('slides',i,'down')" class="btn btn-sm btn-light"
+                [disabled]="i === webSite.slides.length -1 "><i class="bi bi-arrow-down-short"></i>Move Down</button>
+              <hr />
+
+            </div>
+            <!-- Add slide -->
+            <button *ngIf="webSite.slides.length < 3" (click)="addSlide()" class="btn btn-sm btn-primary">+ Add
+              slide</button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Site Identity -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            Site Identity
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <div>
+              <div class="d-flex flex-column justify-content-center align-items-center">
+                <img [src]="webSite.logoImg" class="slider-image-preview" />
+                <input type="file" (change)="changingLogoImg($event)" />
+              </div>
+
+              <label for="logoImgAlt">Logo Image Alt</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.logoImgAlt"
+                id="logoImgAlt" />
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Box Top -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            Info Box Top
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="servicesHeadTitle">Services Head Subtitle</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.servicesHeadTitle"
+              id="servicesHeadTitle" />
+
+            <label for="servicesHeadDescription">Services Head Description</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.servicesHeadDescription"
+              id="servicesHeadDescription" />
+
+            <div *ngFor="let service of webSite.services ; let i=index" class="border p-3 my-2">
+              <div class="d-flex flex-column justify-content-center align-items-center">
+                <img [src]="service.servicesImage" class="slider-image-preview" />
+                <input type="file" (change)="changingServiceImg($event, i)" />
+              </div>
+
+              <label for="servicesTitle">Services Title</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="service.servicesTitle"
+                id="servicesTitle" />
+
+              <label for="servicesDescription">Services Description</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="service.servicesDescription"
+                id="servicesDescription" />
+
+              <label for="servicesImgAlt">Services Image Alt 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="service.servicesImgAlt"
+                id="servicesImgAlt" />
+
+              <label for="servicesButton">Services Button 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="service.servicesButton"
+                id="servicesButton" />
+
+              <label for="servicesButtonLink">Services Button Link 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="service.servicesButtonLink"
+                id="servicesButtonLink" />
+
+              <button (click)="removeElement('services',i)" class="btn btn-sm btn-danger">- Remove service</button>
+              <button (click)="moveElement('services',i,'up')" class="btn btn-sm btn-light" [disabled]="i===0"><i
+                  class="bi bi-arrow-up-short"></i> Move Up</button>
+              <button (click)="moveElement('services',i,'down')" class="btn btn-sm btn-light"
+                [disabled]="i === webSite.services.length -1 "><i class="bi bi-arrow-down-short"></i>Move Down</button>
+
+            </div>
+
+            <!-- Add service -->
+            <button *ngIf="webSite.services.length < 3" (click)="addService()" class="btn btn-sm btn-primary">+ Add
+              service</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Us -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+            About Us
+          </button>
+        </h2>
+        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="aboutTitle">About Title</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.aboutTitle" id="aboutTitle" />
+
+            <label for="aboutDescription">About Description</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.aboutDescription"
+              id="aboutDescription" />
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <img [src]="webSite.aboutImage" class="slider-image-preview" />
+              <input type="file" (change)="changingAboutImg($event)" />
+            </div>
+
+            <label for="aboutImgAlt">About Img Alt</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.aboutImgAlt"
+              id="aboutImgAlt" />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+            Products
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="productHeadImage"> Product Head Image</label>
+            <div id="productHeadImage" class="d-flex flex-column justify-content-center align-items-center">
+              <img [src]="webSite.productHeadImage" class="slider-image-preview" />
+              <input type="file" (change)="changingProductHeadImg($event)" />
+            </div>
+
+            <label for="product">Product</label>
+            <label class="text-danger">Dropdown not implemented</label>
+            <select>
+              <option *ngFor="let product of products">{{product | json}}</option>
+            </select>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Box Bottom -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+            Info Box Bottom
+          </button>
+        </h2>
+        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="projectHeadTitle">Project Head Title</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.projectHeadTitle"
+              id="projectHeadTitle" />
+
+            <label for="projectHeadDescription">Project Head Description</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.projectHeadDescription"
+              id="projectHeadDescription" />
+
+            <div *ngFor="let project of webSite.projects; let i=index" class="border p-3 my-2">
+              <label for="productImage">Projects Images</label>
+              <div id="productImage" class="d-flex flex-column justify-content-center align-items-center">
+                <img [src]="webSite.aboutImage" class="slider-image-preview" />
+                <input type="file" (change)="changingAboutImg($event)" />
+              </div>
+
+              <label for="projectsTitle">Project Title 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="project.projectsTitle"
+                id="projectsTitle" />
+
+              <label for="projectsDescription">Project Description 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="project.projectsDescription"
+                id="projectsDescription" />
+
+              <label for="projectsImgAlt">Projects Image Alt 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="project.projectsImgAlt"
+                id="projectsImgAlt" />
+
+              <label for="projectsButton">Project Button 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="project.projectsButton"
+                id="projectsButton" />
+
+              <label for="projectsButtonLink">Project Button Link 1</label>
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="project.projectsButtonLink"
+                id="projectsButtonLink" />
+
+              <button (click)="removeElement('projects',i)" class="btn btn-sm btn-danger">- Remove project</button>
+              <button (click)="moveElement('projects',i,'up')" class="btn btn-sm btn-light" [disabled]="i === 0"><i
+                  class="bi bi-arrow-up-short"></i> Move Up</button>
+              <button (click)="moveElement('projects',i,'down')" class="btn btn-sm btn-light"
+                [disabled]="i === webSite.projects.length -1 "><i class="bi bi-arrow-down-short"></i>Move Down</button>
+
+            </div>
+
+            <!-- Add project -->
+            <button *ngIf="webSite.projects.length < 3" (click)="addProject()" class="btn btn-sm btn-primary">+ Add
+              project</button>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact page -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+            Contact page
+          </button>
+        </h2>
+        <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="productImage">Contact page image</label>
+            <div id="contactPageImage" class="d-flex flex-column justify-content-center align-items-center">
+              <img [src]="webSite.contactPageImage" class="slider-image-preview" />
+              <input type="file" (change)="changingContactPageImage($event)" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- First Banner Image -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+            First Banner Image
+          </button>
+        </h2>
+        <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="productImage">First Banner Image</label>
+            <div id="firstBannerImage" class="d-flex flex-column justify-content-center align-items-center">
+              <img [src]="webSite.firstBannerImage" class="slider-image-preview" />
+              <input type="file" (change)="changingfirstBannerImage($event)" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Banner Image -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
+            Second Banner Image
+          </button>
+        </h2>
+        <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="productImage">Second Banner Image</label>
+            <div id="secondBannerImage" class="d-flex flex-column justify-content-center align-items-center">
+              <img [src]="webSite.secondBannerImage" class="slider-image-preview" />
+              <input type="file" (change)="changingSecondBannerImage($event)" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen">
+            Footer
+          </button>
+        </h2>
+        <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="seoTitle">Contact Address</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactAddress" />
+
+            <label for="seoDescription">Contact Email *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactEmail" />
+
+            <label for="seoKeywords">Contact Phone *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactPhone" />
+
+            <label for="seoKeywords">Contact WorkTime *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactWorkTime" />
+
+            <label for="seoKeywords">Instagram</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.instagram" />
+
+            <label for="seoKeywords">Facebook</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.facebook" />
+
+            <label for="seoKeywords">Twitter</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.twitter" />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- SEO -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven">
+            SEO
+          </button>
+        </h2>
+        <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="contactAddress">Contact Address *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactAddress" />
+
+            <label for="contactEmail">Contact Email *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactEmail" />
+
+            <label for="contactPhone">Contact Phone *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactPhone" />
+
+            <label for="contactWorkTime">Contact WorkTime *</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.contactWorkTime" />
+
+            <label for="instagram">Instagram</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.instagram" />
+
+            <label for="facebook">Facebook</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.facebook" />
+
+            <label for="twitter">Twitter</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.twitter" />
+
+
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Analytics -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwelve" aria-expanded="true" aria-controls="collapseTwelve">
+            Google Analytics
+          </button>
+        </h2>
+        <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="seoTitle">GA Tracking ID</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.trackingID"
+              placeholder="G-XXXXXXX" />
+            <br />
+            <label for="seoTitle">Tracking Method</label><br />
+            <input type="radio" value="gtag" checked>Global Site Tag / gtag.js
+            <br />
+            <br />
+            <label for="trackingLocation">Tracking Code Location</label><br />
+            <input type="radio" [(ngModel)]="webSite.trackingLocation" value="header" checked>Include tracking code in
+            page head
+            <br />
+            <input type="radio" [(ngModel)]="webSite.trackingLocation" value="ga-footer">Include tracking code in page
+            footer
+            <br />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Instagram API -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseThirteen" aria-expanded="true" aria-controls="collapseThirteen">
+            Instagram
+          </button>
+        </h2>
+        <div id="collapseThirteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="instagramAPI">Instagram</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.instagramAPI"
+              placeholder="API" />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Facebook API -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen">
+            Facebook
+          </button>
+        </h2>
+        <div id="collapseFourteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <label for="facebookAPI">Facebook</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.facebookAPI"
+              placeholder="API" />
+
+            <label for="facebookPageID">Page ID</label>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="webSite.facebookPageID"
+              placeholder="ex. 323250464743855" />
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion name -->
+      <!-- <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            Accordion name
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            
+           
+          </div>
+        </div>
+      </div> -->
+
+
+    </div>
+
+  </div>
+  <div class="right-side col-sm-12 col-md-9">
+    <app-site-preview [webSite]="webSite"></app-site-preview>
+  </div>
+</div>
